@@ -12,6 +12,7 @@
     <body>
         <button class="favorite styled" type="button" onclick="createWorker()">createWorker</button>
         <button class="favorite styled" type="button" onclick="isitupDOM('isitupDOM')">isitupDOM</button>
+        <button class="favorite styled" type="button" onclick="init('init')">init</button>
         <button class="favorite styled" type="button" onclick="isitup('isitup')">isitup</button>
         <button class="favorite styled" type="button" onclick="runWorker('run_thread')">run_thread</button>
         <button class="favorite styled" type="button" onclick="terminateWorker()">terminateWorker</button>
@@ -32,6 +33,12 @@
                 worker = new Worker('./worker.js')
                 worker.onmessage = e => console.log(e)
             }
+
+            function init(){
+                console.log("initWorker")
+                worker.postMessage('init')
+            }
+
             function terminateWorker(){
                 console.log("termination worker")
                 worker.terminate();

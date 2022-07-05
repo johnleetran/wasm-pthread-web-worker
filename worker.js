@@ -3,21 +3,17 @@
 // ----------------------------------------
 
 importScripts("app.js")
-
-onmessage = (msg) => {
-    const App = {
+let app;
+onmessage = async (msg) => {
+    let App = {
         locateFile: (file) => file,
-        onRuntimeInitialized: () => {
-            if(msg.data == 'isitup'){
-                App.isitup();
-            }else{
-                App.run_thread();
-            }
-            self.close();
-        },
         mainScriptUrlOrBlob: "app.js",
     };
-
-    // AppModule is the name of the exported library with emscripten
-    AppModule(App)
+    if(msg.data == 'init'){
+        app = await AppModule(App)
+    }else if(msg.data == 'isitup'){
+        app.isitup();
+    }else{
+        app.run_thread();
+    }
 }
