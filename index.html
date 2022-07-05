@@ -28,10 +28,12 @@
             }
 
             function createWorker(){
+                console.log("create worker")
                 worker = new Worker('./worker.js')
                 worker.onmessage = e => console.log(e)
             }
             function terminateWorker(){
+                console.log("termination worker")
                 worker.terminate();
             }
 
