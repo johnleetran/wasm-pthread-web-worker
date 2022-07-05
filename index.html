@@ -10,16 +10,16 @@
         </style>
     </head>
     <body>
-        <button class="favorite styled" type="button" 
-onclick="runMain('thread')">Main thread</button>
-        <button class="favorite styled" type="button" 
-onclick="runMain('serial')">Main serial</button><br><br>
-        <button class="favorite styled" type="button" 
-onclick="runWorker('thread')">Worker thread</button>
-        <button class="favorite styled" type="button" 
-onclick="runWorker('serial')">Worker Serial</button>
-        <script src="lib.js"></script>
+        <button class="favorite styled" type="button" onclick="isitup('isitup')">isitup</button>
+        <button class="favorite styled" type="button" onclick="runMain('run_non_thread')">run_non_thread</button>
+        <button class="favorite styled" type="button" onclick="runWorker('run_thread')">run_thread</button>
+        <script src="app.js"></script>
         <script>
+            function isitup(){
+                LibModule().then(app => {
+                    app.isitup();
+                })
+            }
             function runWorker(method) {
                 const worker = new Worker('./worker.js')
                 worker.onmessage = e => console.log(e)
@@ -27,11 +27,8 @@ onclick="runWorker('serial')">Worker Serial</button>
             }
 
             function runMain(method) {
-                LibModule().then( lib => {
-                    const a = performance.now()
-                    method === 'thread' ? lib.thread() : lib.serial() ;
-                    console.log( `${method} done in 
-${(performance.now()-a)}ms` )
+                LibModule().then( app => {
+                    app.run_non_thread();
                 })
             }
         </script>

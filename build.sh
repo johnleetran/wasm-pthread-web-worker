@@ -10,5 +10,5 @@ emcc -std=c++17 \
   -s WASM=1 \
   -s MODULARIZE=1 \
   -s ALLOW_MEMORY_GROWTH=1 \
-  -o lib.js \
+  -o app.js \
   main.cpp

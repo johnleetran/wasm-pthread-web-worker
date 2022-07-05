@@ -2,21 +2,22 @@
 // Used with index.html
 // ----------------------------------------
 
-importScripts("lib.js")
+importScripts("app.js")
 
 onmessage = e => {
-    const Lib = {
+    const App = {
         locateFile: (file) => file,
         onRuntimeInitialized: () => {
-            const a = performance.now()
-            e.data === 'thread' ? Lib.thread() : Lib.serial() ;
-            console.log( `${e.data} done in ${(performance.now()-a)}ms` )
+            App.run_thread();
+            // const a = performance.now()
+            // e.data === 'thread' ? Lib.thread() : Lib.serial() ;
+            // console.log( `${e.data} done in ${(performance.now()-a)}ms` )
         },
-        mainScriptUrlOrBlob: "lib.js",
+        mainScriptUrlOrBlob: "app.js",
     };
 
     // LibModule is the name of the exported library with emscripten
-    LibModule(Lib)
+    LibModule(App)
 }
 
 
