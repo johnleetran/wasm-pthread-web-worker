@@ -47,5 +47,4 @@ void isitup() {
 EMSCRIPTEN_BINDINGS(test) {
     function("isitup", &isitup);
     function("run_thread", &run_thread);
-    function("run_non_thread", &run_non_thread);
 }

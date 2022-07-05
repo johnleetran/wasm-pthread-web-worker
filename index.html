@@ -10,27 +10,35 @@
         </style>
     </head>
     <body>
+        <button class="favorite styled" type="button" onclick="createWorker()">createWorker</button>
+        <button class="favorite styled" type="button" onclick="isitupDOM('isitupDOM')">isitupDOM</button>
         <button class="favorite styled" type="button" onclick="isitup('isitup')">isitup</button>
-        <button class="favorite styled" type="button" onclick="runMain('run_non_thread')">run_non_thread</button>
         <button class="favorite styled" type="button" onclick="runWorker('run_thread')">run_thread</button>
-        <script src="app.js"></script>
+        <button class="favorite styled" type="button" onclick="terminateWorker()">terminateWorker</button>
+
+        <!-- <script src="app.js"></script> -->
         <script>
-            function isitup(){
-                LibModule().then(app => {
-                    app.isitup();
-                })
+            var worker = null;
+            function isitupDOM(method) {
+                console.log("DOM is unblocked here")
             }
-            function runWorker(method) {
-                const worker = new Worker('./worker.js')
-                worker.onmessage = e => console.log(e)
+
+            function isitup(method){
                 worker.postMessage(method)
             }
 
-            function runMain(method) {
-                LibModule().then( app => {
-                    app.run_non_thread();
-                })
+            function createWorker(){
+                worker = new Worker('./worker.js')
+                worker.onmessage = e => console.log(e)
             }
+            function terminateWorker(){
+                worker.terminate();
+            }
+
+            function runWorker(method) {
+                worker.postMessage(method)
+            }
+
         </script>
     </body>
 </html>

@@ -4,31 +4,20 @@
 
 importScripts("app.js")
 
-onmessage = e => {
+onmessage = (msg) => {
     const App = {
         locateFile: (file) => file,
         onRuntimeInitialized: () => {
-            App.run_thread();
-            // const a = performance.now()
-            // e.data === 'thread' ? Lib.thread() : Lib.serial() ;
-            // console.log( `${e.data} done in ${(performance.now()-a)}ms` )
+            if(msg.data == 'isitup'){
+                App.isitup();
+            }else{
+                App.run_thread();
+            }
+            self.close();
         },
         mainScriptUrlOrBlob: "app.js",
     };
 
-    // LibModule is the name of the exported library with emscripten
-    LibModule(App)
+    // AppModule is the name of the exported library with emscripten
+    AppModule(App)
 }
-
-
-// Was previously (loading of the worker not working)
-/*
-importScripts("lib.js")
-onmessage = e => {
-    LibModule().then( lib => {
-        const a = performance.now()
-        e.data === 'thread' ? lib.thread() : lib.serial() ;
-        console.log( `${e.data} done in ${(performance.now()-a)}ms` )
-    })
-}
-*/
