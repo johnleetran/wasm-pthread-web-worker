@@ -12,3 +12,5 @@ emcc -std=c++17 \
   -s ALLOW_MEMORY_GROWTH=1 \
   -o app.js \
   main.cpp
+
+  emrun --browser chrome index.html
